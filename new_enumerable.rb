@@ -55,7 +55,7 @@ module Enumerable
     def my_count(arg = nil)
         count = 0
         if !block_given? && !arg
-            puts self.length
+            self.length
         elsif !block_given? && arg
             self.my_each { |element| count +=1 if element == arg }
         elsif block_given?
@@ -64,10 +64,28 @@ module Enumerable
         count
     end
 
+    def my_inject
+
+    end
+
+    def my_map(arg = nil)
+        newArray = []
+        self.my_each {|element| 
+        if block_given?
+            newArray.push(yield(element))
+        elsif arg
+            newArray.push(arg.call(element))
+        end
+        }
+        newArray
+    end
+
 
 end #Enumerable
 
-arr = [25,45,55,36]
+arr = [1,2,3]
+
+double = Proc.new { |n| n * 2 }
 
 # Test cases
 # arr.my_each {|n| p  n * 2 }
@@ -79,3 +97,9 @@ arr = [25,45,55,36]
 #p [5,6, false].my_any? { |n| n > 3 }
 
 # p [1,2,3,2,2,2,2].my_count { |n| n % 2 == 0 }
+
+# p arr.my_map(&double)
+
+# p arr.my_map { |n| n*2}
+
+
