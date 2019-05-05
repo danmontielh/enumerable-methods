@@ -64,8 +64,11 @@ module Enumerable
         count
     end
 
-    def my_inject
-
+    def my_inject(memo = nil)
+        self.my_each do |element| 
+            memo = memo ? yield(memo,element) : self[0]
+        end  
+    memo
     end
 
     def my_map(arg = nil)
@@ -102,4 +105,11 @@ double = Proc.new { |n| n * 2 }
 
 # p arr.my_map { |n| n*2}
 
+# p [5,6,7,8,9,10].my_inject {|number,element| number + element}
+
+# def multiply_els(arr)
+#     arr.my_inject { |number, element| number * element }
+# end
+
+# p multiply_els(arr)
 
